@@ -33,7 +33,7 @@ $memos = $db->query('SELECT * FROM memos ORDER BY id DESC');
 <article>
     <?php while ($memo = $memos->fetch()): ?>
         <!-- while とendwhileは ; ではなく : コロン で結ぶため注意！！！ -->
-        <p><a href="#"><?php print(mb_substr($memo['memo'], 0, 50)); ?></a></p>
+        <p><a href="memo.php?id=<?php print($memo['id']); ?>"><?php print(mb_substr($memo['memo'], 0, 50)); ?></a></p>
         <!-- mb_substrは文字列に対して、文字数を制限できる関数
         mb_substr(3つの引数を取る、、、①文字、②開始文字、③終了文字) -->
         <time><?php print($memo['created_at']); ?></time>

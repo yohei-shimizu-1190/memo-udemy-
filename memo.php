@@ -27,18 +27,14 @@ try {
 } catch (PDOException $e) {
     echo 'DB接続エラー: ' . $e->getMessage();
 }
-$memos = $db->query('SELECT * FROM memos ORDER BY id DESC');
+
+$memos = $db->query('SELECT * FROM memos WHERE id=1');
+$memo = $memos->fetch();
 ?>
 
 <article>
-    <?php while ($memo = $memos->fetch()): ?>
-        <!-- while とendwhileは ; ではなく : コロン で結ぶため注意！！！ -->
-        <p><a href="#"><?php print(mb_substr($memo['memo'], 0, 50)); ?></a></p>
-        <!-- mb_substrは文字列に対して、文字数を制限できる関数
-        mb_substr(3つの引数を取る、、、①文字、②開始文字、③終了文字) -->
-        <time><?php print($memo['created_at']); ?></time>
-        <hr>
-    <?php endwhile ?>
+  <pre> <?php print($memo['memo']); ?> </pre>
+  <a href="index.php">戻る</a>
 </article>
 </main>
 </body>    

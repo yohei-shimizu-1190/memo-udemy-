@@ -25,13 +25,13 @@
       // prepare（事前準備という意味）にはSQLをもたせて、ユーザーが入力する値を ？ として指定する。
       // $statementオブジェクトはexecuteメソッドが使える。これでSQLを実行できる。
 
-      $statement->bindParam(1, $_POST['memo'])
+      $statement->bindParam(1, $_POST['memo']);
       // ? が多くなるときなどは、1つめの？はこれ！のように指定する書き方がいい。
       $statement->execute();
       // executeメソッドのパラメーターには ？ に実際に何が入るのかを指定する
 
       // 28,30を一行で書くと、 $statement->execute(array($_POST['memo'])); でもいいよ
-      
+
       // executeメソッドは安全性が高いため、ユーザー入力されるときなどに使える！
       echo 'メッセージが登録されました。';
       // created_at=NOW()のNOW()はsqlで使える書き方。今の時間を入れられる。

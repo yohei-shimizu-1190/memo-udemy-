@@ -20,7 +20,18 @@
 <?php
 require('dbconnect.php');
 
-$memos = $db->query('SELECT * FROM memos ORDER BY id DESC');
+if (isset($_REQUEST['page']) && is_numeric($_REQUEST['page'])) {
+    $page = $_REQUEST['page'];
+} else {
+    $page = 1;
+}
+$start = 5 * ($page - 1);
+
+$memos = $db->prepare('SELECT * FROM memos ORDER BY id DESC LIMIT ?, 5');
+// LIMIT句は 0, 5 とすると、 id順の上から0を基準として5つまで表示させ、
+// 5,5 とすると、 id順の上から5を基準として5つまで表示される。
+$memos->bindParam(1, $start, PDO::PARAM_INT);
+$memos->execute();
 ?>
 
 <article>

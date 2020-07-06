@@ -34,10 +34,16 @@ try {
 } catch (PDOException $e) {
     echo 'DB接続エラー: ' . $e->getMessage();
 }
-
-$count = $db->exec('INSERT INTO my_items SET maker_id=1, item_name="もも", price=210, keyword="缶詰、ピンク、甘い"');
-echo $count . '件のデータを挿入しました';
-
+// ともにパラメーターにsqlをとるが、返り値が異なる。
+// execメソッド 影響を与えた行の数を返す(数を知りたいときはexec)
+// queryメソッド セレクトで得られた値を返す（セレクトのときはquery）
+$records = $db->query('SELECT * FROM my_items');
+// $recordsは'record set'というインスタンスとなるみたいで、いろんなメソッドを持つ
+// 今回はfetchメソッドを使う。fetch（割当てるという意味）はレコードの行のうち、1行を取り出す。行を順番に取り出し、なくなるとfalseを返すため、while でtrueの間はレコードを取り出して、falseになったら終了できる。
+while ($record = $records->fetch()) {
+    // $recordは連想配列で、そのなかの要素を取り出すため['item_name']のレコードを取得
+    print($record['item_name'] . "\n");
+}
 ?>
 </pre>
 </main>
